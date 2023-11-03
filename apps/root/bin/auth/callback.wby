@@ -51,11 +51,6 @@ let footer_html = common.render_foot_html(project);
 
 
 
-let users_json = github.get_global_content(users_path);
-if users_json {
-      users = parse_json(users_json);
-}
-
 let fuser_info = pglite.get_by_id('select * from profile where id=?', [user_info['id']]);
 
 let u_id = user_info['id'] + '';
