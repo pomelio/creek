@@ -51,7 +51,7 @@ let footer_html = common.render_foot_html(project);
 
 
 
-let fuser_info = pglite.get_by_id('select * from profile where id=?', [user_info['id']]);
+let fuser_info = lite.get_by_id('select * from profile where id=?', [user_info['id']]);
 
 let u_id = user_info['id'] + '';
 
