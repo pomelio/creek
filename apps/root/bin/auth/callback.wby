@@ -1,0 +1,92 @@
+import ext.web as web;
+import ext.github as github;
+import ext.google as google;
+import std.array as array;
+import ext.jwt as jwt;
+import ext.mustache as mch;
+import std.date as date;
+import modules.common as common;
+import ext.pagwelite as lite;
+import ext.squel as sql;
+
+let {code} = web.query();
+
+let user_info = undefined;
+
+if from == 'google' {
+      google.handle_auth_result(code, {});
+      let uinfo = google.get_user_info();
+      user_info = {
+            provider: 'google',
+            name: uinfo['name'],
+            picture: uinfo['picture'],
+            id: uinfo['id']
+      };
+
+} elsif from == 'github' {
+      let auth_result = github.handle_auth_result(code, {});
+      let uinfo = github.get_user_info();
+      user_info = {
+            provider: 'github',
+            name: uinfo['login'],
+            picture: uinfo['avatar_url'],
+            id: uinfo['id'] + ''
+      };
+} else {
+      throw({
+            name: 'LOGIN_FROM_NOT_FOUND',
+            message: 'login from is not found.'
+      });
+}
+
+
+let project = {};
+let project_json = github.get_global_content('/project.json');
+if project_json {
+      project = parse_json(project_json);
+}
+
+let header_html = mch.render_global_template('/template/header.mustache');
+let footer_html = common.render_foot_html(project);
+
+
+
+let users_json = github.get_global_content(users_path);
+if users_json {
+      users = parse_json(users_json);
+}
+
+let fuser_info = pglite.get_by_id('select * from profile where id=?', [user_info['id']]);
+
+let u_id = user_info['id'] + '';
+
+if !fuser_info || fuser_info != user_info {
+      let nw = date.now();
+
+      sql.insert();
+      sql.into('profile');
+      
+      sql.set('id', u_id);
+      sql.set('picture', user_info['picture']);
+      sql.set('name', user_info['name']);
+      sql.set('provider', user_info['provider']);
+      sql.set('name', user_info['name']);
+      sql.set('create_time', nw);
+
+      let sql_text = sql.get_sql_text();
+      let sql_values = sql.get_sql_values();
+      lite.update(sql_text, sql_values);
+}
+
+
+let provider = user_info['provider'];
+
+let timestamp = nw;
+let user_token = jwt.sign({id: u_id, provider, timestamp});
+user_info['token'] = user_token;
+
+let user_info_json = stringify_json(user_info);
+
+let html = mch.render_template('/template/auth/login_callback.mustache');
+
+web.body(html);
