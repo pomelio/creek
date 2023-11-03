@@ -55,8 +55,10 @@ let fuser_info = lite.get_by_id('select * from profile where id=?', [user_info['
 
 let u_id = user_info['id'] + '';
 
+let nw = date.now();
+
 if !fuser_info || fuser_info != user_info {
-      let nw = date.now();
+      
 
       sql.insert();
       sql.into('profile');
