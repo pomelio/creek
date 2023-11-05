@@ -68,7 +68,7 @@ fn parse_html_card(url) {
 }
 
 
-function save_card(card) {
+fn save_card(card) {
 
     sql.insert();
     sql.into('card');
