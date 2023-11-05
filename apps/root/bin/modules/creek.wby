@@ -35,18 +35,18 @@ fn parse_html_card(url) {
                 }
 
                 
-                if attributes['name'] == 'og:image' {
+                if attributes['property'] == 'og:image' {
                     card['image'] = attributes['content'];
                 }
                 if attributes['name'] == 'twitter:image' {
-                    card['description'] = attributes['content'];
+                    card['image'] = attributes['content'];
                 }
 
-                if attributes['name'] == 'og:video:url' {
+                if attributes['property'] == 'og:video:url' {
                     card['video'] = attributes['content'];
                 }
                 if attributes['name'] == 'twitter:image' {
-                    card['description'] = attributes['content'];
+                    card['image'] = attributes['content'];
                 }
 
             }
