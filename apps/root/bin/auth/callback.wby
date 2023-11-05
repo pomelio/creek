@@ -49,11 +49,10 @@ if project_json {
 let header_html = mch.render_global_template('/template/header.mustache');
 let footer_html = common.render_foot_html(project);
 
-
-
-let fuser_info = lite.get_by_id('select * from profile where id=?', [user_info['id']]);
-
 let u_id = user_info['id'] + '';
+
+let fuser_info = lite.get_by_id('select * from profile where id=?', [u_id]);
+
 
 let nw = date.now();
 
