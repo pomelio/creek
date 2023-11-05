@@ -1,0 +1,70 @@
+
+import ext.htmlparser as htmlparser;
+
+
+fn parse_html_card(url) {
+    let card = {};
+
+    let html = fetch('GET', url, null, {}, 'text');
+
+    let last_tag = null;
+    let last_text = null;
+
+    htmlparser.parse(html, 
+        |name, attributes| => {
+            last_tag = name;
+            if name == 'meta' {
+                if attributes['name'] == 'title' {
+                    card['description'] = attributes['content'];
+                }
+                if attributes['name'] == 'og:title' {
+                    card['description'] = attributes['content'];
+                }
+                if attributes['name'] == 'twitter:title' {
+                    card['description'] = attributes['content'];
+                }
+
+                if attributes['name'] == 'description' {
+                    card['description'] = attributes['content'];
+                }
+                if attributes['name'] == 'og:description' {
+                    card['description'] = attributes['content'];
+                }
+                if attributes['name'] == 'twitter:description' {
+                    card['description'] = attributes['content'];
+                }
+
+                
+                if attributes['name'] == 'og:image' {
+                    card['image'] = attributes['content'];
+                }
+                if attributes['name'] == 'twitter:image' {
+                    card['description'] = attributes['content'];
+                }
+
+                if attributes['name'] == 'og:video:url' {
+                    card['video'] = attributes['content'];
+                }
+                if attributes['name'] == 'twitter:image' {
+                    card['description'] = attributes['content'];
+                }
+
+            }
+
+        }, |text| => {
+            if last_tag == 'title' {
+            last_text = text;
+        }
+        
+        
+        }, |name| => {
+            if name == 'title' {
+                card['title'] = last_text;
+                last_text = null;
+            }
+        }
+    );
+
+    return card;
+}
+

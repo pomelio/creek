@@ -6,6 +6,30 @@ import ext.markdownit as md;
 import std.date as dt;
 import ext.web as web;
 import std.string as str;
+import ext.pagwelite as lite;
+import ext.squel as sql;
+
+fn render_likes_html(clazz, doc) {
+
+  let doc_likes = lite.list('select * from likes where clazz=? and doc=?', [clazz, doc]);
+
+  let count = len(likes);
+
+  let likes_html = [];
+
+  mch.init('/template/like.mustache');
+
+  for (let i = 0; i < count; i++) {
+    let like = likes[i];
+    let uid = like['user_id'];
+    let user = lite.get_by_id('select * from  profile where id=?', [uid])
+    let like_html = mch.render();
+    array.push(likes_html, like_html);
+  }
+
+  let html = array.join(likes_html, '');
+  return {html, count};
+}
 
 fn render_comments_html(clazz, doc, users) {
   let comments = [];

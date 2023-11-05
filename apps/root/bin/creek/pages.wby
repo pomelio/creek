@@ -1,0 +1,114 @@
+import ext.github as github;
+import std.string as string;
+import ext.web as web;
+import std.array as array;
+import ext.mustache as mch;
+import ext.markdownit as md;
+import std.math as math;
+import std.number as number;
+import ext.pagwelite as lite;
+import ext.squel as sql;
+
+import modules.common as common;
+
+let PAGE_SIZE = 20;
+
+let query = web.query();
+let page = 0;
+if query['page'] {
+  page = number.parse_int(query['page']);
+}
+
+let offset = page * PAGE_SIZE;
+
+let end = offset + PAGE_SIZE;
+
+if end > blogs_count {
+    end = blogs_count;
+}
+
+
+let project = {};
+let project_json = github.get_global_content('/project.json');
+if project_json {
+    project = parse_json(project_json);
+}
+
+let app = {};
+let app_json = github.get_app_content('/app.json');
+if app_json {
+  app= parse_json(app_json);
+}
+let clazz = 'creek';
+let doc = 'creek';
+let likes = common.render_likes_html(clazz, doc);
+
+let {html: likes_html, count: likes_count} = common.render_likes_html('blog', 'follower', users, likes);
+
+let side_bar_html = common.render_sidebar(app);
+
+let cards = lite.list('select * from card where delete_time > 0 order by create_time desc limit ? offset ? ', [PAGE_SIZE, offset]);
+
+let cards_count = len(cards);
+
+let cards_html = [];
+
+mch.init('/template/creek_card.mustache');
+
+for (let i = 0; i < cards_count; i++) {
+    let card = cards[i];
+    
+    let url = card.url;
+    let is_player_card = false;
+    let is_summary_card = false;
+    let is_summary_image_card = false;
+
+    let player_url = null;
+    let image_url = null;
+    let video = card['video'];
+    let image = card['photo'];
+    let title = card['title'];
+    let description = card['description'];
+    let pub_date = card['create_time'];
+
+    if video {
+        is_player_card = true;
+        is_summary_card = false;
+        is_summary_image_card = false;
+
+        let youtubeID = video;
+        image_url = 'https://img.youtube.com/vi/' + youtubeID + '/0.jpg';
+    } elsif image {
+        is_player_card = false;
+        is_summary_card = false;
+        is_summary_image_card = true;
+        
+        image_url = image;
+    } else {
+        is_player_card = false;
+        is_summary_card = true;
+        is_summary_image_card = false;
+    }
+  
+    let card_html = mch.render();
+    array.push(cards, card_html);
+}
+
+let cards_html = array.join(cards_html, '');
+  
+
+let HOST_NAME = web.hostname();
+
+let card_resp = lite.list('select count(*) as 'len'  from card where delete_time > 0', []);
+let creek_len = card_resp['len'];
+
+
+let page_count = math.floor(creek_len / PAGE_SIZE) + 1;
+
+let header_html = mch.render_global_template('/template/header.mustache');
+let footer_html = common.render_foot_html(project);
+
+let html = mch.render_template('/template/creek/pages.mustache');
+
+web.body(html);
+

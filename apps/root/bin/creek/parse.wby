@@ -1,0 +1,18 @@
+import modules.creek as creek;
+import ext.web as web;
+import ext.github as github;
+import std.array as array;
+import ext.jwt as jwt;
+import std.date as date;
+
+
+let token = jwt.verify();
+
+let user_id = token['id'];
+
+let {url} = web.request_body();
+
+let card = creek.parse_html_card(url);
+card['user_id'] = user_id;
+
+web.body(card);

@@ -3,18 +3,16 @@ import std.string as str;
 import std.array as array;
 
 
-let apps = [
-  'cookbook',
-  'blog'
-];
 
 let web_path = web.path();
 let method = web.method();
 
 let app = array.find(apps, |a| => str.starts_with(web_path, '/' + a));
 
-if app {
-  dispatch(app, '/index', {});
+if web_path == '/' {
+  dispatch(app, '/creek/pages', {});
+} elsif web_path == '/parse' {
+  dispatch(app, '/creek/parse', {});
 } elsif web_path == '/login' {
   dispatch(__APP__, '/auth/login', {});
 } elsif web_path == '/user/like' {
