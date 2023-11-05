@@ -73,6 +73,7 @@ if !fuser_info {
       lite.update(sql_text, sql_values);
 } else if fuser_info != user_info {
       sql.update();
+      sql.table('profile');
       sql.set('picture', user_info['picture']);
       sql.set('name', user_info['name']);
 
