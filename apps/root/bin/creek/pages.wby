@@ -21,12 +21,6 @@ if query['page'] {
 
 let offset = page * PAGE_SIZE;
 
-let end = offset + PAGE_SIZE;
-
-if end > blogs_count {
-    end = blogs_count;
-}
-
 
 let project = {};
 let project_json = github.get_global_content('/project.json');
@@ -50,6 +44,12 @@ let side_bar_html = common.render_sidebar(app);
 let cards = lite.list('select * from card where delete_time > 0 order by create_time desc limit ? offset ? ', [PAGE_SIZE, offset]);
 
 let cards_count = len(cards);
+
+let end = offset + PAGE_SIZE;
+
+if end > cards_count {
+    end = cards_count;
+}
 
 let cards_html = [];
 
