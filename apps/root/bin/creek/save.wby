@@ -13,6 +13,9 @@ let nw = date.now();
 let card = web.request_body();
 
 card['id'] = uuid();
+
+
+sql.insert();
 sql.set('id', card['id']);
 sql.set('title', card['title']);
 sql.set('url', card['url']);
