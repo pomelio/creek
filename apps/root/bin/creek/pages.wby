@@ -88,7 +88,7 @@ for (let i = 0; i < cards_count; i++) {
     }
   
     let card_html = mch.render();
-    array.push(cards, card_html);
+    array.push(cards_html, card_html);
 }
 
 let cards_html = array.join(cards_html, '');
