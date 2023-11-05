@@ -102,7 +102,7 @@
 	}, false);
 
 
-function parse_url(url) {
+async function parse_url(url) {
 	let data = {
 			url,
 		};
@@ -223,7 +223,7 @@ function parse_url(url) {
 				tag: null,
 
 				async parse_link() {
-					parse_url(this.current_link_value);
+					await parse_url(this.current_link_value);
 				}
 			}">
 				
