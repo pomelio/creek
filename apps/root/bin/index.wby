@@ -8,7 +8,7 @@ let method = web.method();
 if web_path == '/' {
   dispatch(__APP__, '/creek/pages', {});
 } elsif web_path == '/creek/parse' {
-  dispatch(app, '/creek/parse', {});
+  dispatch(__APP__, '/creek/parse', {});
 } elsif web_path == '/login' {
   dispatch(__APP__, '/auth/login', {});
 } elsif web_path == '/user/like' {
