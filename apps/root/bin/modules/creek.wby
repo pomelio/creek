@@ -1,6 +1,7 @@
 
 import ext.htmlparser as htmlparser;
-
+import ext.pagwelite as lite;
+import ext.squel as sql;
 
 fn parse_html_card(url) {
     let card = {};
@@ -64,5 +65,41 @@ fn parse_html_card(url) {
     );
 
     return card;
+}
+
+
+function save_card(card) {
+
+    sql.insert();
+    sql.into('card');
+    sql.set('id', card['id']);
+    sql.set('title', card['title']);
+    sql.set('url', card['url']);
+
+    if card['description'] {
+        sql.set('description', card['description']);
+    }
+
+    if card['image'] {
+        sql.set('image', card['image']);
+    }
+
+    if card['video'] {
+        sql.set('video', card['video']);
+    }
+
+    if card['tag'] {
+        sql.set('tag', card['tag']);
+    }
+
+    if card['lang'] {
+        sql.set('lang', card['lang']);
+    }
+    sql.set('user_id', user_id);
+    sql.set('create_time', nw);
+
+    let sql_text = sql.get_sql_text();
+    let sql_values = sql.get_sql_values();
+    lite.update(sql_text, sql_values);
 }
 
