@@ -95,8 +95,8 @@ fn save_card(card) {
     if card['lang'] {
         sql.set('lang', card['lang']);
     }
-    sql.set('user_id', user_id);
-    sql.set('create_time', nw);
+    sql.set('user_id', card['user_id']);
+    sql.set('create_time', card['create_time']);
 
     let sql_text = sql.get_sql_text();
     let sql_values = sql.get_sql_values();

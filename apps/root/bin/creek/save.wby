@@ -12,6 +12,8 @@ let nw = date.now();
 let card = web.request_body();
 
 card['id'] = uuid();
+card['user_id'] = user_id;
+card['create_time'] = nw;
 
 creek.save_card(card);
 
