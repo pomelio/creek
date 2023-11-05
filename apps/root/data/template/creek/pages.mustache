@@ -101,7 +101,43 @@
 		}
 	}, false);
 
-	
+
+function parse_url(url) {
+	let data = {
+			url,
+		};
+
+		let headers = {
+			'Content-Type': 'application/json;charset=UTF-8',
+			'Authorization': 'Bearer ' + this.my_account.token,
+		};
+
+		let config = {
+			method: 'post',
+			url: '/creek/parse',
+			data,
+			headers,
+		};
+
+		this.loading = true;
+		try {	
+			let card = await axios(config);
+			
+			self.loading = false;	
+
+			this.title = card.title;
+			this.description = card.description;
+			this.image = card.image;
+			this.video = card.video;
+
+
+		} finally {
+			let self = this;
+			
+			self.loading = false;	
+		}
+	}
+}
 
 </script>
 
@@ -187,39 +223,7 @@
 				tag: null,
 
 				async parse_link() {
-					let data = {
-						url: this.current_link_value,
-					};
-
-					let headers = {
-						'Content-Type': 'application/json;charset=UTF-8',
-						'Authorization': 'Bearer ' + this.my_account.token,
-					};
-
-					let config = {
-						method: 'post',
-						url: '/creek/parse',
-						data,
-						headers,
-					};
-
-					this.loading = true;
-					try {	
-						let card = await axios(config);
-						
-						self.loading = false;	
-
-						this.title = card.title;
-						this.description = card.description;
-						this.image = card.image;
-						this.video = card.video;
-
-
-					} finally {
-						let self = this;
-						
-						self.loading = false;	
-					}
+					parse_url(this.current_link_value);
 				}
 			}">
 				
