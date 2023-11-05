@@ -121,7 +121,8 @@ async function parse_url(url, token) {
 
 	this.loading = true;
 	try {	
-		let card = await axios(config);
+		let resp = await axios(config);
+		let card = resp.data;
 		
 		self.loading = false;	
 
