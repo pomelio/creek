@@ -102,14 +102,14 @@
 	}, false);
 
 
-async function parse_url(url) {
+async function parse_url(url, token) {
 	let data = {
 		url,
 	};
 
 	let headers = {
 		'Content-Type': 'application/json;charset=UTF-8',
-		'Authorization': 'Bearer ' + this.my_account.token,
+		'Authorization': 'Bearer ' + token,
 	};
 
 	let config = {
@@ -224,7 +224,7 @@ async function parse_url(url) {
 
 				async parse_link() {
 					console.log('-parse_link-start-');
-					await parse_url(this.current_link_value);
+					await parse_url(this.current_link_value, this.my_account.token);
 					console.log('-parse_link-end-');
 				}
 			}">
