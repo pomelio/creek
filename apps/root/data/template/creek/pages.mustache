@@ -228,10 +228,6 @@
 						this.image = card.image;
 						this.video = card.video;
 
-						this.card_tag.href = url;
-						this.image_tag.src = card.image;
-						this.image_tag.alt = card.title;
-
 
 					} finally {
 						let self = this;
@@ -257,9 +253,9 @@
 					<template x-if="title">
 						<div>
 							<div class="rounded bg-white border-gray-200 shadow-md overflow-hidden relative hover:shadow-lg hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700">
-								<a target="_blank" x-bind="card_tag"  >
+								<a target="_blank" x-bind:href="url" >
 								<template x-if="image">
-									<img class="h-32 sm:h-48 w-full object-cover" x-bind="image_tag">
+									<img class="h-32 sm:h-48 w-full object-cover" x-bind:src="image" x-bind:alt="title">
 								</template>
 									
 									<div class="m-4">
