@@ -241,7 +241,6 @@
 						this.image = null;
 						this.video = null;
 						this.url = null;
-						this.current_link_value = null;
 						
 						self.loading = false;	
 
@@ -256,7 +255,7 @@
 				async parse_link() {
 					console.log('-parse_link-start-');
 					
-					let url = this.current_link_value;
+					let url = this.url;
 					let data = {
 						url,
 					};
