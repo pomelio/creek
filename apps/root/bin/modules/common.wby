@@ -11,7 +11,7 @@ import ext.squel as sql;
 
 fn render_likes_html(clazz, doc) {
 
-  let doc_likes = lite.list('select * from likes where clazz=? and doc=?', [clazz, doc]);
+  let doc_likes = lite.list('select * from like where clazz=? and doc=?', [clazz, doc]);
 
   let count = len(doc_likes);
 
