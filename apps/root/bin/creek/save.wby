@@ -16,6 +16,7 @@ card['id'] = uuid();
 
 
 sql.insert();
+sql.into('card');
 sql.set('id', card['id']);
 sql.set('title', card['title']);
 sql.set('url', card['url']);
