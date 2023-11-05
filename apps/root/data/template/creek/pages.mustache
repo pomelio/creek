@@ -236,13 +236,8 @@
 					this.loading = true;
 					try {	
 						await axios(config);
-						this.title = null;
-						this.description = null;
-						this.image = null;
-						this.video = null;
-						this.url = null;
 						
-						self.loading = false;	
+						window.location.reload();
 
 					} finally {
 						let self = this;
@@ -284,7 +279,7 @@
 						this.image = card.image;
 						this.video = card.video;
 
-
+						
 					} finally {
 						let self = this;
 						
