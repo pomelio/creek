@@ -366,8 +366,15 @@
 			<div class="px-4 pt-6 space-y-8 grid lg:grid-cols-2 lg:gap-4">
 				{{{cards_html}}}
 			</div>
-			<div class="mt-12 flex justify-center">
-				<div id="pagination" data-page="{{page}}" data-count="{{page_count}}" data-url="/"></div>
+			<div class="mt-12 flex justify-center" x-data="{
+					page: {{page}},
+					cards_count: {{cards_count}},
+					page_size: {{PAGE_SIZE}},
+				}">
+				<span>First</span>
+
+				<span>Last</span>
+
 			</div>
 				
            
