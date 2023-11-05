@@ -56,7 +56,7 @@ mch.init('/template/creek/creek_card.mustache');
 for (let i = 0; i < cards_count; i++) {
     let card = cards[i];
     
-    let url = card.url;
+    let url = card['url'];
     let is_player_card = false;
     let is_summary_card = false;
     let is_summary_image_card = false;
@@ -64,7 +64,7 @@ for (let i = 0; i < cards_count; i++) {
     let player_url = null;
     let image_url = null;
     let video = card['video'];
-    let image = card['photo'];
+    let image = card['image'];
     let title = card['title'];
     let description = card['description'];
     let pub_date = card['create_time'];
@@ -74,8 +74,7 @@ for (let i = 0; i < cards_count; i++) {
         is_summary_card = false;
         is_summary_image_card = false;
 
-        let youtubeID = video;
-        image_url = 'https://img.youtube.com/vi/' + youtubeID + '/0.jpg';
+        image_url = image;
     } elsif image {
         is_player_card = false;
         is_summary_card = false;
