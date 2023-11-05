@@ -71,7 +71,7 @@ if !fuser_info {
       let sql_text = sql.get_sql_text();
       let sql_values = sql.get_sql_values();
       lite.update(sql_text, sql_values);
-} else if fuser_info != user_info {
+} elsif fuser_info != user_info {
       sql.update();
       sql.table('profile');
       sql.set('picture', user_info['picture']);
