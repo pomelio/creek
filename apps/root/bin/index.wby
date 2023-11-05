@@ -6,7 +6,7 @@ let web_path = web.path();
 let method = web.method();
 
 if web_path == '/' {
-  dispatch(app, '/creek/pages', {});
+  dispatch(__APP__, '/creek/pages', {});
 } elsif web_path == '/parse' {
   dispatch(app, '/creek/parse', {});
 } elsif web_path == '/login' {
