@@ -223,7 +223,9 @@ async function parse_url(url) {
 				tag: null,
 
 				async parse_link() {
+					console.log('-parse_link-start-');
 					await parse_url(this.current_link_value);
+					console.log('-parse_link-end-');
 				}
 			}">
 				
