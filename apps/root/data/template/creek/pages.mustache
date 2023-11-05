@@ -369,13 +369,15 @@
 			<div x-init="render();" class="mt-12 flex justify-center gap-4 text-gray-900 dark:text-white " x-data="{
 					page: {{page}},
 					page_count: {{page_count}},
-					page_size: {{PAGE_SIZE}},
 					pages: [],
 
 					render() {
 						let offset = this.page < 10 ? 0 : this.page - 5;
 						let end = this.page + 5 < this.page_count ? this.page + 5 : this.page_count;
-						this.pages = [offset..end];
+						this.pages = Array.from(
+										{length: end - offset},
+										(_, index) => index + offset
+									);
 						
 					}
 				}">
