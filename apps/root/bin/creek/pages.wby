@@ -35,9 +35,7 @@ if app_json {
 }
 let clazz = 'creek';
 let doc = 'creek';
-let likes = common.render_likes_html(clazz, doc);
-
-let {html: likes_html, count: likes_count} = common.render_likes_html('blog', 'follower', users, likes);
+let {html: likes_html, count: likes_count} = common.render_likes_html(clazz, doc);
 
 let side_bar_html = common.render_sidebar(app);
 
