@@ -39,7 +39,7 @@ let {html: likes_html, count: likes_count} = common.render_likes_html(clazz, doc
 
 let side_bar_html = common.render_sidebar(app);
 
-let cards = lite.list('select * from card where delete_time > 0 order by create_time desc limit ? offset ? ', [PAGE_SIZE, offset]);
+let cards = lite.list('select * from card where delete_time = 0 order by create_time desc limit ? offset ? ', [PAGE_SIZE, offset]);
 
 let cards_count = len(cards);
 
