@@ -56,7 +56,7 @@ let fuser_info = lite.get_by_id('profile', u_id);
 
 let nw = date.now();
 
-if !fuser_info || fuser_info != user_info {
+if !fuser_info {
       
 
       sql.insert();
@@ -66,12 +66,20 @@ if !fuser_info || fuser_info != user_info {
       sql.set('picture', user_info['picture']);
       sql.set('name', user_info['name']);
       sql.set('provider', user_info['provider']);
-      sql.set('name', user_info['name']);
       sql.set('create_time', nw);
 
       let sql_text = sql.get_sql_text();
       let sql_values = sql.get_sql_values();
       lite.update(sql_text, sql_values);
+} else if fuser_info != user_info {
+      sql.update();
+      sql.set('picture', user_info['picture']);
+      sql.set('name', user_info['name']);
+
+      let sql_text = sql.get_sql_text();
+      let sql_values = sql.get_sql_values();
+      lite.update(sql_text, sql_values);
+
 }
 
 
