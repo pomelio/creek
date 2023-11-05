@@ -2,12 +2,8 @@ import ext.web as web;
 import std.string as str;
 import std.array as array;
 
-
-
 let web_path = web.path();
 let method = web.method();
-
-let app = array.find(apps, |a| => str.starts_with(web_path, '/' + a));
 
 if web_path == '/' {
   dispatch(app, '/creek/pages', {});
