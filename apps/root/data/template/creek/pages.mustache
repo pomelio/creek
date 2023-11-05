@@ -102,42 +102,7 @@
 	}, false);
 
 
-async function parse_url(url, token) {
-	let data = {
-		url,
-	};
 
-	let headers = {
-		'Content-Type': 'application/json;charset=UTF-8',
-		'Authorization': 'Bearer ' + token,
-	};
-
-	let config = {
-		method: 'post',
-		url: '/creek/parse',
-		data,
-		headers,
-	};
-
-	this.loading = true;
-	try {	
-		let resp = await axios(config);
-		let card = resp.data;
-		
-		self.loading = false;	
-
-		this.title = card.title;
-		this.description = card.description;
-		this.image = card.image;
-		this.video = card.video;
-
-
-	} finally {
-		let self = this;
-		
-		self.loading = false;	
-	}
-}
 
 
 </script>
@@ -225,7 +190,41 @@ async function parse_url(url, token) {
 
 				async parse_link() {
 					console.log('-parse_link-start-');
-					await parse_url(this.current_link_value, this.my_account.token);
+					let url = this.current_link_value;
+					let data = {
+						url,
+					};
+
+					let headers = {
+						'Content-Type': 'application/json;charset=UTF-8',
+						'Authorization': 'Bearer ' + this.my_account.token,
+					};
+
+					let config = {
+						method: 'post',
+						url: '/creek/parse',
+						data,
+						headers,
+					};
+
+					this.loading = true;
+					try {	
+						let resp = await axios(config);
+						let card = resp.data;
+						
+						self.loading = false;	
+
+						this.title = card.title;
+						this.description = card.description;
+						this.image = card.image;
+						this.video = card.video;
+
+
+					} finally {
+						let self = this;
+						
+						self.loading = false;	
+					}
 					console.log('-parse_link-end-');
 				}
 			}">
