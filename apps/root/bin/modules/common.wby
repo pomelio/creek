@@ -22,7 +22,7 @@ fn render_likes_html(clazz, doc) {
   for (let i = 0; i < count; i++) {
     let like = likes[i];
     let uid = like['user_id'];
-    let user = lite.get_by_id('select * from  profile where id=?', [uid])
+    let user = lite.get_by_id('select * from  profile where id=?', [uid]);
     let like_html = mch.render();
     array.push(likes_html, like_html);
   }
