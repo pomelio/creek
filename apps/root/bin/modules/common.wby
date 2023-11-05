@@ -17,7 +17,7 @@ fn render_likes_html(clazz, doc) {
 
   let likes_html = [];
 
-  mch.init('/template/like.mustache');
+  mch.init('/template/creek/like.mustache');
 
   for (let i = 0; i < count; i++) {
     let like = likes[i];
