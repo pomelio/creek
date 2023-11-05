@@ -189,12 +189,68 @@
 				tag: null,
 				url: null,
 
-				card_tag: {
-					href: null
-				},
+				async save_link() {
+					console.log('-save_link-start-');
+					
+					if (!this.title) {
+						return;
+					}
+					
+					let data = {
+						title: this.title,
+						url: this.url,
+					};
 
-				image_tag: {
-					src: null
+					if (this.description) {
+						data.description = this.description;
+					}
+
+					if (this.image) {
+						data.image = this.image;
+					}
+
+					if (this.video) {
+						data.video = this.video;
+					}
+
+					if (this.tag) {
+						data.tag = this.tag;
+					}
+
+					if (this.lang) {
+						data.lang = this.lang;
+					}
+
+					let headers = {
+						'Content-Type': 'application/json;charset=UTF-8',
+						'Authorization': 'Bearer ' + this.my_account.token,
+					};
+
+					let config = {
+						method: 'post',
+						url: '/creek/save',
+						data,
+						headers,
+					};
+
+					this.loading = true;
+					try {	
+						await axios(config);
+						this.title = null;
+						this.description = null;
+						this.image = null;
+						this.video = null;
+						this.url = null;
+						this.current_link_value = null;
+						
+						self.loading = false;	
+
+					} finally {
+						let self = this;
+						
+						self.loading = false;	
+					}
+					console.log('-save_link-end-');
 				},
 
 				async parse_link() {
@@ -266,9 +322,9 @@
 						<div>
 							<div class="rounded bg-white border-gray-200 shadow-md overflow-hidden relative hover:shadow-lg hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700">
 								<a target="_blank" x-bind:href="url" >
-								<template x-if="image">
-									<img class="h-32 sm:h-48 w-full object-cover" x-bind:src="image" x-bind:alt="title">
-								</template>
+									<template x-if="image">
+										<img class="h-32 sm:h-48 w-full object-cover" x-bind:src="image" x-bind:alt="title">
+									</template>
 									
 									<div class="m-4">
 										<div class="flex justify-between">
@@ -276,6 +332,8 @@
 										</div>
 										<span class="block text-gray-500 text-sm" x-text="description"></span>
 									</div>
+									<button :class="loading && 'hidden' " @click="save_link" class="text-white absolute right-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Save</button>
+
 								</a>
 							</div>
 

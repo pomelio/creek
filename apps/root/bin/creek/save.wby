@@ -1,0 +1,46 @@
+import ext.web as web;
+import ext.jwt as jwt;
+import std.date as date;
+import ext.pagwelite as lite;
+import ext.squel as sql;
+
+let token = jwt.verify();
+
+let user_id = token['id'];
+
+let nw = date.now();
+
+let card = web.request_body();
+
+card['id'] = uuid();
+sql.set('id', card['id']);
+sql.set('title', card['title']);
+sql.set('url', card['url']);
+
+if card['description'] {
+  sql.set('description', card['description']);
+}
+
+if card['image'] {
+  sql.set('image', card['image']);
+}
+
+if card['video'] {
+  sql.set('video', card['video']);
+}
+
+if card['tag'] {
+  sql.set('tag', card['tag']);
+}
+
+if card['lang'] {
+  sql.set('lang', card['lang']);
+}
+sql.set('user_id', user_id);
+sql.set('create_time', nw);
+
+let sql_text = sql.get_sql_text();
+let sql_values = sql.get_sql_values();
+lite.update(sql_text, sql_values);
+
+web.body({status: 'OK'});
