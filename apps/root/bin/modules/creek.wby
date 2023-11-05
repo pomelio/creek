@@ -14,40 +14,38 @@ fn parse_html_card(url) {
         |name, attributes| => {
             last_tag = name;
             if name == 'meta' {
-                if attributes['name'] == 'title' {
-                    card['description'] = attributes['content'];
+                if attributes['name'] == 'title' && !card['title'] {
+                    card['title'] = attributes['content'];
                 }
-                if attributes['name'] == 'og:title' {
-                    card['description'] = attributes['content'];
+                if attributes['name'] == 'og:title'  && !card['title'] {
+                    card['title'] = attributes['content'];
                 }
-                if attributes['name'] == 'twitter:title' {
-                    card['description'] = attributes['content'];
+                if attributes['name'] == 'twitter:title'  && !card['title'] {
+                    card['title'] = attributes['content'];
                 }
 
-                if attributes['name'] == 'description' {
+                if attributes['name'] == 'description'  && !card['description'] {
                     card['description'] = attributes['content'];
                 }
-                if attributes['name'] == 'og:description' {
+                if attributes['name'] == 'og:description' && !card['description'] {
                     card['description'] = attributes['content'];
                 }
-                if attributes['name'] == 'twitter:description' {
+                if attributes['name'] == 'twitter:description' && !card['description'] {
                     card['description'] = attributes['content'];
                 }
 
                 
-                if attributes['property'] == 'og:image' {
+                if attributes['property'] == 'og:image' && !card['image']{
                     card['image'] = attributes['content'];
                 }
-                if attributes['name'] == 'twitter:image' {
+                if attributes['name'] == 'twitter:image' && !card['image'] {
                     card['image'] = attributes['content'];
                 }
 
-                if attributes['property'] == 'og:video:url' {
+                if attributes['property'] == 'og:video:url' && !card['video'] {
                     card['video'] = attributes['content'];
                 }
-                if attributes['name'] == 'twitter:image' {
-                    card['image'] = attributes['content'];
-                }
+                
 
             }
 
@@ -58,7 +56,7 @@ fn parse_html_card(url) {
         
         
         }, |name| => {
-            if name == 'title' {
+            if name == 'title' && !card['title'] {
                 card['title'] = last_text;
                 last_text = null;
             }
