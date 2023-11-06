@@ -320,11 +320,11 @@
 						
 					}
 				}">
-				<span>First</span>
+				<a href="/?page=0"><span>First</span></a>
 				<template x-for="pg in pages">
-					<span x-text="pg + 1"></span>
+					<a x-bind:href="'/?page=' + pg"><span x-text="pg + 1"></span></a>
 				</template>
-				<span>Last</span>
+				<a x-bind:href="'/?page=' + (page_count - 1)"><span>Last</span></a>
 
 			</div>
 				
