@@ -1,18 +1,22 @@
 
 <div class="rounded bg-white border-gray-200 shadow-md overflow-hidden relative hover:shadow-lg hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700">
-<a href="{{{url}}}" >
-<div>
-    {{#is_player_card}}
-      <img class="h-32 sm:h-48 w-full object-cover" src="{{{image_url}}}" alt="{{title}}">
+
     
+    {{#is_player_card}}
+    <a href="{{{url}}}">
+      <img class="h-32 sm:h-48 w-full object-cover" src="{{{image_url}}}" alt="{{title}}">
+    </a>
     {{/is_player_card}}
     {{#is_summary_image_card}}
+      <a href="{{{url}}}">
       <img class="h-32 sm:h-48 w-full object-cover" src="{{{image_url}}}" alt="{{title}}">
+      </a>
     {{/is_summary_image_card}}
     <div class="m-4">
       <div class="flex justify-between">
+        <a href="{{{url}}}">
         <span class="font-bold dark:text-white">{{title}}</span>
-        
+        </a>
       </div>
       <span class="block text-gray-500 text-sm">{{description}}</span>
       <div class="flex justify-between text-base text-gray-900  hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-700">
@@ -28,6 +32,6 @@
       
     </div>
 </div>
-</a>
+
 </div>
 
