@@ -74,7 +74,7 @@ for (let i = 0; i < cards_count; i++) {
     let image = card['image'];
     let title = card['title'];
     let description = card['description'];
-    let pub_date = card['create_time'];
+    
 
     if video {
         is_player_card = true;
