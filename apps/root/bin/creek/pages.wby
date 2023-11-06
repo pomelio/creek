@@ -8,6 +8,7 @@ import std.math as math;
 import std.number as number;
 import ext.pagwelite as lite;
 import ext.squel as sql;
+import std.date as date;
 
 import modules.common as common;
 import modules.user as user_helper;
@@ -59,6 +60,8 @@ for (let i = 0; i < cards_count; i++) {
 
     let user_id = card['user_id'];
     let profile = user_helper.get_user(user_id);
+    date.from_number(card.create_time)
+    let pub_date = date.from_now();
     
     let url = card['url'];
     let is_player_card = false;
