@@ -5,5 +5,8 @@
     },
     "navi": {
         "👩🏻‍🦰 Users": "/users"
-    }
+    },
+    "name": "Creek",
+    "description": "Share your links.",
+    "image": "/blog/public/images/avatar.png"
 }
