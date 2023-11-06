@@ -11,7 +11,7 @@ import ext.squel as sql;
 
 import modules.common as common;
 
-let PAGE_SIZE = 20;
+let PAGE_SIZE = 10;
 
 let query = web.query();
 let page = 0;
