@@ -96,7 +96,7 @@ let cards_html = array.join(cards_html, '');
 
 let HOST_NAME = web.hostname();
 
-let card_resp = lite.get('select count(*) as len  from card where delete_time > 0', []);
+let card_resp = lite.get('select count(*) as len  from card where delete_time = 0', []);
 let creek_len = card_resp['len'];
 
 
