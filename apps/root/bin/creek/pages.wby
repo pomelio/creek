@@ -10,6 +10,7 @@ import ext.pagwelite as lite;
 import ext.squel as sql;
 
 import modules.common as common;
+import modules.user as user_helper;
 
 let PAGE_SIZE = 10;
 
@@ -55,6 +56,9 @@ mch.init('/template/creek/creek_card.mustache');
 
 for (let i = 0; i < cards_count; i++) {
     let card = cards[i];
+
+    let user_id = card['user_id'];
+    let profile = user_helper.get_user(user_id);
     
     let url = card['url'];
     let is_player_card = false;
