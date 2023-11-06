@@ -60,7 +60,7 @@ for (let i = 0; i < cards_count; i++) {
 
     let user_id = card['user_id'];
     let profile = user_helper.get_user(user_id);
-    date.from_number(card.create_time);
+    date.from_number(card['create_time']);
     let pub_date = date.from_now();
     
     let url = card['url'];
