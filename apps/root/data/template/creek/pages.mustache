@@ -228,80 +228,84 @@
 				}
 			}">
 				
+				
+						
+			<template x-if="my_account">
 				<div class="pt-4">   
 					<label for="link" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">link</label>
 					<div class="relative">
 						
-						
-						<template x-if="my_account">
-							<div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-								<svg class="w-4 h-4 text-gray-500 dark:text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-									<path stroke-linecap="round" stroke-linejoin="round" d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244" />
-								</svg>
+						<div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+							<svg class="w-4 h-4 text-gray-500 dark:text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+								<path stroke-linecap="round" stroke-linejoin="round" d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244" />
+							</svg>
 
-							</div>
-							<div>
-								<input type="search" x-model="url" id="link" class="block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="share your link here..." required>
-								<button :class="loading && 'hidden' " @click="parse_link" class="text-white absolute right-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Import</button>
-							</div>
-						</template>
-
-						<template x-if="!my_account">
-							<a href="/login" class="text-white right-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Login</a>
-						</template>
-
-
-					</div>
-					<template x-if="title">
-						<div>
-							<div class="rounded bg-white border-gray-200 shadow-md overflow-hidden relative hover:shadow-lg hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700">
-								<a target="_blank" x-bind:href="url" >
-									<template x-if="image">
-										<img class="h-32 sm:h-48 w-full object-cover" x-bind:src="image" x-bind:alt="title">
-									</template>
-									
-									<div class="m-4">
-										<div class="flex justify-between">
-											<span class="font-bold dark:text-white" x-text="title"></span>
-										</div>
-										<span class="block text-gray-500 text-sm" x-text="description"></span>
-									</div>
-									
-
-								</a>
-								<button :class="loading && 'hidden' " @click="save_link" class="text-white absolute right-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Save</button>
-							</div>
-
-							<div class="mb-6">
-								<label for="title" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">title</label>
-								<input  x-model="title" type="text" id="title" class="block w-full p-4 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-							</div>
-							<div class="mb-6">
-								<label for="description" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">description</label>
-								<textarea  x-model="description" id="description" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Write your thoughts here..."></textarea>
-							</div>
-							<div class="mb-6">
-								<label for="image" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">image</label>
-								<input  x-model="image" type="text" id="title" class="block w-full p-4 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-							</div>
-							<div class="mb-6">
-								<label for="video" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">video</label>
-								<input  x-model="video" type="text" id="title" class="block w-full p-4 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-							</div>
-							<div class="mb-6">
-								<label for="tag" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">tag</label>
-								<input  x-model="tag" type="text" id="title" class="block w-full p-4 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-							</div>
-							<div class="mb-6">
-								<label for="lang" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">lang</label>
-								<input  x-model="lang" type="text" id="title" class="block w-full p-4 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-							</div>
 						</div>
-					</template>
+						<div>
+							<input type="search" x-model="url" id="link" class="block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="share your link here..." required>
+							<button :class="loading && 'hidden' " @click="parse_link" class="text-white absolute right-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Import</button>
+						</div>
+					</div>
 				</div>
+			</template>
+
+			<template x-if="!my_account">
+				<div class="pt-4"> 
+					<a href="/login" class="text-white right-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Login</a>
+				</div>
+			</template>
 
 
+					
+			<template x-if="title">
+				<div>
+					<div class="rounded bg-white border-gray-200 shadow-md overflow-hidden relative hover:shadow-lg hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700">
+						<a target="_blank" x-bind:href="url" >
+							<template x-if="image">
+								<img class="h-32 sm:h-48 w-full object-cover" x-bind:src="image" x-bind:alt="title">
+							</template>
+							
+							<div class="m-4">
+								<div class="flex justify-between">
+									<span class="font-bold dark:text-white" x-text="title"></span>
+								</div>
+								<span class="block text-gray-500 text-sm" x-text="description"></span>
+							</div>
+							
+
+						</a>
+						<button :class="loading && 'hidden' " @click="save_link" class="text-white absolute right-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Save</button>
+					</div>
+
+					<div class="mb-6">
+						<label for="title" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">title</label>
+						<input  x-model="title" type="text" id="title" class="block w-full p-4 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+					</div>
+					<div class="mb-6">
+						<label for="description" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">description</label>
+						<textarea  x-model="description" id="description" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Write your thoughts here..."></textarea>
+					</div>
+					<div class="mb-6">
+						<label for="image" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">image</label>
+						<input  x-model="image" type="text" id="title" class="block w-full p-4 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+					</div>
+					<div class="mb-6">
+						<label for="video" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">video</label>
+						<input  x-model="video" type="text" id="title" class="block w-full p-4 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+					</div>
+					<div class="mb-6">
+						<label for="tag" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">tag</label>
+						<input  x-model="tag" type="text" id="title" class="block w-full p-4 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+					</div>
+					<div class="mb-6">
+						<label for="lang" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">lang</label>
+						<input  x-model="lang" type="text" id="title" class="block w-full p-4 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+					</div>
+				</div>
+			</template>
+			
 			</div>
+				
 			
 			<div class="px-4 pt-6 space-y-8 grid lg:grid-cols-2 lg:gap-4">
 				{{{cards_html}}}
