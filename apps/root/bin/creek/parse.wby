@@ -12,5 +12,9 @@ let {url} = web.request_body();
 
 let card = creek.parse_html_card(url);
 card['user_id'] = user_id;
+if card['title'] {
+    card['lang'] = creek.detect_lang(card['title']);
+}
+
 
 web.body(card);

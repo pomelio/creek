@@ -2,6 +2,12 @@
 import ext.htmlparser as htmlparser;
 import ext.pagwelite as lite;
 import ext.squel as sql;
+import ext.languagedetect as languagedetect;
+
+fn detect_lang(sample) {
+    let rows = languagedetect.detect(sample, 1);
+    return rows[0][0];
+}
 
 fn parse_html_card(url) {
     let card = {};
