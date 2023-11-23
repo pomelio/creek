@@ -55,8 +55,8 @@ fn render_card(card) {
         is_summary_card = true;
         is_summary_image_card = false;
     }
-  
-    return mch.render();
+    
+    return mch.render_template('/template/creek/creek_card.mustache');
 }
 
 

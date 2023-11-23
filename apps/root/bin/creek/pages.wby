@@ -50,8 +50,6 @@ if end > cards_count {
 
 let cards_html = [];
 
-mch.init('/template/creek/creek_card.mustache');
-
 for (let i = 0; i < cards_count; i++) {
     let card = cards[i];
 
