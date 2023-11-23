@@ -37,9 +37,9 @@ fn render_comments_html(clazz, doc) {
   let comments_html = [];
 
   mch.init_global('/template/comment.mustache');
-  let comments_count = len(comments);
+  let count = len(comments);
 
-  for (let i = 0; i < comments_count; i++) {
+  for (let i = 0; i < count; i++) {
     let comment = comments[i];
     let md_comment_result = md.render_source(comment['value']);
     let comment_content = md.get_html(md_comment_result);
@@ -51,7 +51,8 @@ fn render_comments_html(clazz, doc) {
     array.push(comments_html, comment_html);
   }
 
-  return array.join(comments_html, '');
+  let html = array.join(comments_html, '');
+  return {html, count};
 }
 
 fn render_foot_html(project) {
