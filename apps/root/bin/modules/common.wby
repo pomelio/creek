@@ -73,12 +73,12 @@ fn insert_comment(comment) {
     sql.insert();
     sql.into('comment');
     sql.set('id', comment['id']);
-    sql.set('clazz', card['clazz']);
-    sql.set('doc', card['doc']);
-    sql.set('user_id', card['user_id']);
-    sql.set('value', card['value']);
+    sql.set('clazz', comment['clazz']);
+    sql.set('doc', comment['doc']);
+    sql.set('user_id', comment['user_id']);
+    sql.set('value', cacommentrd['value']);
 
-    sql.set('create_time', card['create_time']);
+    sql.set('create_time', comment['create_time']);
 
     let sql_text = sql.get_sql_text();
     let sql_values = sql.get_sql_values();
