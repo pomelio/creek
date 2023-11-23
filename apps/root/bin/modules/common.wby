@@ -54,6 +54,12 @@ fn render_comments_html(clazz, doc) {
   return {html, count};
 }
 
+fn get_doc_comments_count(clazz, doc){
+    let count_resp = lite.get('select count(*) as len  from comment where clazz=? and doc=?', [clazz, doc]);
+    return count_resp['len'];
+
+}
+
 fn get_comment(id) {
   return lite.get_by_id('comment', id);
 }

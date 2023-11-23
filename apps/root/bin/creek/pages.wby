@@ -51,7 +51,7 @@ let cards_html = [];
 
 for (let i = 0; i < cards_count; i++) {
     let card = cards[i];
-
+    let comments_count = common.get_doc_comments_count('card', card['id']);
     let card_html = creek.render_card(card);
     array.push(cards_html, card_html);
 }
@@ -62,7 +62,7 @@ let cards_html = array.join(cards_html, '');
 let HOST_NAME = web.hostname();
 
 
-let creek_len = creek.get_card_length();
+let creek_len = creek.get_cards_count();
 
 
 let page_count = math.floor(creek_len / PAGE_SIZE);

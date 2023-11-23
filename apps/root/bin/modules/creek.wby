@@ -6,7 +6,7 @@ import ext.languagedetect as languagedetect;
 import std.date as date;
 import ext.mustache as mch;
 
-fn get_card_length() {
+fn get_cards_count() {
     let card_resp = lite.get('select count(*) as len  from card where delete_time = 0', []);
     return card_resp['len'];
 }
