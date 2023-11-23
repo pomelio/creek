@@ -101,7 +101,7 @@ fn remove_comment(id) {
 
   sql.delete();
   sql.from('comment');
-  sql.where('id=?', comment['id']);  
+  sql.where('id=?', [id]);  
 
   let sql_text = sql.get_sql_text();
   let sql_values = sql.get_sql_values();
