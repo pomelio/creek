@@ -5,7 +5,7 @@ fn get_user(u_id) {
    return lite.get_by_id('profile', u_id);
 }
 
-fn list_user_cards(page_size, offset) {
+fn list_page_users(page_size, offset) {
     return lite.list('select * from profile order by create_time desc limit ? offset ? ', [page_size, offset]);
 }
 
