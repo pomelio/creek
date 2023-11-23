@@ -76,7 +76,7 @@ fn insert_comment(comment) {
     sql.set('clazz', comment['clazz']);
     sql.set('doc', comment['doc']);
     sql.set('user_id', comment['user_id']);
-    sql.set('value', cacommentrd['value']);
+    sql.set('value', comment['value']);
 
     sql.set('create_time', comment['create_time']);
 
