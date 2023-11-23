@@ -45,7 +45,7 @@ fn render_comments_html(clazz, doc) {
     let metas = md.get_metas(md_comment_result);
     let comment_time = dt.from_now(dt.from_number(comment['create_time']));
     let uid = comment['user_id'];
-    let user = lite.get_by_id('select * from  profile where id=?', [uid]);
+    let user = lite.get_by_id('profile', uid);
     let comment_html = mch.render();
     array.push(comments_html, comment_html);
   }
