@@ -25,8 +25,9 @@ fn render_card(card) {
     date.from_number(card['create_time']);
     let pub_date = date.from_now();
     
-    let url = card['url'];
     let card_id = card['id'];
+    let url = '/card/play/' + card_id;
+    
     let comments_count = card['comments_count'];
     let is_player_card = false;
     let is_summary_card = false;
