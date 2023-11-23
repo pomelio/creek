@@ -167,3 +167,40 @@ fn save_card(card) {
     lite.update(sql_text, sql_values);
 }
 
+fn get_doc_countor(clazz, doc){
+    let count_resp = lite.get('select value as len from countor where clazz=? and doc=?', [clazz, doc]);
+    if count_resp {
+        return count_resp['value'];
+    } else {
+        return 0;
+    }
+}
+
+fn increase_doc_counter(clazz, doc) {
+  let count = get_doc_countor(clazz, doc);
+  if count > 0 {
+    sql.update();
+    sql.table('countor');
+    sql.set('value', 'value+1');
+    sql.where('clazz=? and doc=?', [clazz, doc]);  
+
+    let sql_text = sql.get_sql_text();
+    let sql_values = sql.get_sql_values();
+    lite.update(sql_text, sql_values);
+  } else {
+    let uid = uuid();
+    let update_time = date.from_number();
+    sql.insert();
+    sql.into('comment');
+    sql.set('id', uid);
+    sql.set('clazz', clazz);
+    sql.set('doc', doc);
+    sql.set('value', 1);
+
+    sql.set('update_time', update_time);
+
+    let sql_text = sql.get_sql_text();
+    let sql_values = sql.get_sql_values();
+    lite.update(sql_text, sql_values);
+  }
+}

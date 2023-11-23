@@ -1,0 +1,20 @@
+
+import ext.web as web;
+import modules.creek as creek;
+
+let card_id = web.get_match_param('/card/play/:id', 'id');
+
+let card = creek.get_card_by_id(card_id);
+if !card {
+    web.set_status(404);
+    web.body('card ' + card_id + ' is not found.');
+    return {};
+}
+
+let clazz = 'card';
+let doc = card_id;
+
+creek.increase_doc_counter(clazz, doc);
+
+web.redirect(card.url);
+

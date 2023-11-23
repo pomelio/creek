@@ -7,6 +7,8 @@ let method = web.method();
 
 if web_path == '/' {
   dispatch(__APP__, '/creek/pages', {});
+} elsif method == 'GET' &&  web.match('/card/play/:id') {
+  dispatch(__APP__, '/creek/play', {});
 } elsif method == 'GET' &&  web.match('/card/:id') {
   dispatch(__APP__, '/creek/card', {});
 } elsif web_path == '/creek/parse' {
