@@ -8,7 +8,7 @@ import modules.common as common;
 
 import modules.user as user_helper;
 
-let PAGE_SIZE = 2;
+let PAGE_SIZE = 100;
 
 
 let query = web.query();
