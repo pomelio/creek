@@ -123,18 +123,18 @@
 						
 					}
 				}">
-				<a href="/users/?page=0"><span>First</span></a>
+				<a href="/users?page=0"><span>First</span></a>
 				<template x-for="pg in pages">
 					<div>
 					<template x-if="pg != page">
-						<a x-bind:href="'/users/?page=' + pg"><span x-text="pg + 1"></span></a>
+						<a x-bind:href="'/users?page=' + pg"><span x-text="pg + 1"></span></a>
 					</template>
 					<template x-if="pg === page">
 						<span class="bg-yellow-100 text-yellow-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-yellow-900 dark:text-yellow-300"  x-text="pg + 1"></span>
 					</template>
 					</div>
 				</template>
-				<a x-bind:href="'/users/?page=' + (page_count - 1)"><span>Last</span></a>
+				<a x-bind:href="'/users?page=' + (page_count - 1)"><span>Last</span></a>
 
 			</div>
 				
