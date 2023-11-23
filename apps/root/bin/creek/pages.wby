@@ -106,7 +106,7 @@ let HOST_NAME = web.hostname();
 let creek_len = creek.get_card_length();
 
 
-let page_count = math.floor(creek_len / PAGE_SIZE) + 1;
+let page_count = math.floor(creek_len / PAGE_SIZE);
 
 let header_html = mch.render_global_template('/template/header.mustache');
 let footer_html = common.render_foot_html(project);
