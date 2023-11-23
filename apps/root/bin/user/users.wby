@@ -61,7 +61,7 @@ for (let i = 0; i < card_count; i++) {
 
 users_html = array.join(users_html, '');
 
-let page_count = math.floor(users_count / PAGE_SIZE) + 1;
+let page_count = math.floor(users_count / PAGE_SIZE);
 
 
 let header_html = mch.render_global_template('/template/header.mustache');
