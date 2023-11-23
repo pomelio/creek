@@ -180,7 +180,7 @@ fn increase_doc_counter(clazz, doc) {
   let count = get_doc_countor(clazz, doc);
   if count > 0 {
     let sql = `update countor set value=value+1 where clazz='{clazz}' and doc='{doc}'`;
-    lite.update(sql);
+    lite.update(sql, []);
   } else {
     let uid = uuid();
     let update_time = date.from_number();
