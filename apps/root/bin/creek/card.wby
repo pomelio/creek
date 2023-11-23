@@ -1,0 +1,45 @@
+import ext.github as github;
+import ext.web as web;
+import ext.mustache as mch;
+
+import modules.common as common;
+import modules.creek as creek;
+
+let card_id = web.get_match_param('/card/:id', 'id');
+
+let card = creek.get_card_by_id(card_id);
+if !card {
+    web.set_status(404);
+    web.body('card ' + card_id + ' is not found.');
+    return;
+}
+
+let project = {};
+let project_json = github.get_global_content('/project.json');
+if project_json {
+    project = parse_json(project_json);
+}
+
+let app = {};
+let app_json = github.get_app_content('/app.json');
+if app_json {
+  app = parse_json(app_json);
+}
+
+let clazz = 'card';
+let doc = card_id;
+let {html: likes_html, count: likes_count} = common.render_likes_html(clazz, doc);
+
+let side_bar_html = common.render_sidebar(app);
+
+let {html: comments_html, count: comments_count} = common.render_comments_html(clazz, doc_name);
+
+let HOST_NAME = web.hostname();
+
+let header_html = mch.render_global_template('/template/header.mustache');
+let footer_html = common.render_foot_html(project);
+
+let html = mch.render_template('/template/creek/card.mustache');
+
+web.body(html);
+

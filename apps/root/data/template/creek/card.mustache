@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+	
+	<title>Creek &nbsp;|&nbsp; Pagwe Cloud</title>
+    <meta name="og:title" content="{{title}}">
+	<meta name="twitter:title" content="{{title}}">
+
+    <meta name="description" content="{{description}}">
+	<meta name="og:description" content="{{description}}">
+	<meta name="twitter:description" content="{{description}}">
+	
+    {{#image_url}}
+    <meta name="twitter:card" content="summary" />
+	<meta name="twitter:image" content="{{{image_url}}}">
+
+    <meta name="og:type" content="article" />
+	<meta name="og:url" content="{{{url}}}">
+	<meta name="og:image" content="{{{image_url}}}">
+    {{/image_url}}
+
+	<link rel="icon" type="image/png" href="/public/images/favicon.png">
+	 
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" integrity="sha512-wnea99uKIC3TJF7v4eKk4Y+lMz2Mklv18+r4na2Gn1abDRPPOeef95xTzdwGD9e6zXJBteMIhZ1+68QC5byJZw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind-dark.min.css" integrity="sha512-5qCImO4bnvlpsqNsYuZEHlzJhEN3MBqd3GZp0QCJS0gVNq3Q+MT9Msw8c4UT2j5Cuq/29kz3jCmgYJpekNqSMQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+	<!-- Alpine Plugins -->
+    <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/persist@3.x.x/dist/cdn.min.js"></script>
+ 
+    <!-- Alpine Core -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+<style>
+	
+	pre {
+		tab-size: 4;
+		counter-reset: linecounter;
+		padding: 0;
+		font-size: 16px;
+		line-height: 16px;
+	}
+	pre span.line {
+		counter-increment: linecounter;
+		line-height: 16px;
+	}
+	pre span.line::before {
+		content: counter(linecounter);
+		width: 30px;
+		display: inline-block;
+		border-right: 1px dotted #ccc;
+		padding-right: 3px;
+		margin-right: 5px;
+		text-align: left;
+		font-size: 11px;
+		line-height: 16px;
+	}
+</style>
+
+
+<script type="text/javascript">
+
+	var project_json = `{{{project_json}}}`;
+	var project = JSON.parse(project_json);
+	
+	
+
+
+	function addLineClass (pre) {
+		var lines = pre.innerText.trim().split("\n"); // can use innerHTML also
+		while(pre.childNodes.length > 0) {
+			pre.removeChild(pre.childNodes[0]);
+		}
+		for(var i = 0; i < lines.length; i++) {
+			var span = document.createElement("span");
+			span.className = "line";
+			span.innerText = lines[i]; // can use innerHTML also
+			pre.appendChild(span);
+			pre.appendChild(document.createTextNode("\n"));
+			
+			
+		}
+	}
+	window.addEventListener("load", function () {
+		var pres = document.querySelectorAll("pre > code ");
+		for (var i = 0; i < pres.length; i++) {
+			addLineClass(pres[i]);
+		}
+	}, false);
+
+
+
+
+
+</script>
+
+
+</head>
+
+
+<body class="bg-gray-50 dark:bg-gray-800">
+	{{{header_html}}}
+
+    <div class="flex pt-16 overflow-hidden bg-gray-50 dark:bg-gray-900">
+        {{{side_bar_html}}}
+        <div class="relative lg:px-20 w-full h-full overflow-y-auto bg-gray-50 lg:ml-80 dark:bg-gray-900">
+			
+			<div class="px-4 pt-6 space-y-8">
+				{{{card_html}}}
+			
+
+                <div x-data="{
+                    current_comment_value: '',
+                    current_comment_id: null,
+
+                    async save_comment() {
+                        let data = {
+                            doc: '{{{DOC_NAME}}}',
+                            clazz: 'cookbook',
+                            value: this.current_comment_value,
+                        };
+
+                        
+                        if (this.current_comment_id) {
+                            data.id = this.current_comment_id;
+                        }
+
+
+                        let headers = {
+                            'Content-Type': 'application/json;charset=UTF-8',
+                            'Authorization': 'Bearer ' + this.my_account.token,
+                        };
+
+                        let config = {
+                            method: 'post',
+                            url: '/comment/save',
+                            data,
+                            headers,
+                        };
+
+                        this.loading = true;
+                        try {	
+                            await axios(config);
+
+                        } finally {
+                            let self = this;
+                            
+                            setTimeout(function(){
+                                self.loading = false;
+                                window.location.reload(true);
+                            }, 2000);
+                            
+                        }
+                    }
+                }">
+                    <div class="flex flex-col items-end p-4 my-6 mx-4 bg-white rounded-lg shadow md:justify-between md:p-6 xl:p-8 dark:bg-gray-800">
+
+                        <label for="message" class="justify-self-start block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your Message</label>
+                        <textarea x-model="current_comment_value" rows="4" class="block mb-2 p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Leave a comment..."></textarea>
+                        <div class="basis-1/4">
+                            <button :class="loading && 'hidden' " @click="save_comment" type="button" class="px-3 py-2 text-xs font-medium text-center text-gray-700 hover:bg-gray-100 dark:text-gray-300  dark:hover:text-white dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Save</button>
+                        </div>
+                    </div>
+
+                    
+                    {{#comments_html}}
+                        {{{comments_html}}}
+                    {{/comments_html}}
+                </div>
+            
+                <div x-init="render();" class="mt-12 flex justify-center gap-4 text-gray-900 dark:text-white " x-data="{
+                        page: {{page}},
+                        page_count: {{page_count}},
+                        pages: [],
+
+                        render() {
+                            let offset = this.page < 10 ? 0 : this.page - 5;
+                            let end = this.page + 5 < this.page_count ? this.page + 5 : this.page_count;
+                            this.pages = Array.from(
+                                            {length: end - offset},
+                                            (_, index) => index + offset
+                                        );
+                            
+                        }
+                    }">
+                    <a href="/?page=0"><span>First</span></a>
+                    <template x-for="pg in pages">
+                        <div>
+                        <template x-if="pg != page">
+                            <a x-bind:href="'/?page=' + pg"><span x-text="pg + 1"></span></a>
+                        </template>
+                        <template x-if="pg === page">
+                            <span class="bg-yellow-100 text-yellow-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-yellow-900 dark:text-yellow-300"  x-text="pg + 1"></span>
+                        </template>
+                        </div>
+                    </template>
+                    <a x-bind:href="'/?page=' + page_count"><span>Last</span></a>
+
+                </div>
+            </div>
+				
+           
+			{{{footer_html}}}	
+        </div>
+    </div>
+
+</body>
+
+</html>

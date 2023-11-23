@@ -31,15 +31,8 @@ fn render_likes_html(clazz, doc) {
   return {html, count};
 }
 
-fn render_comments_html(clazz, doc, users) {
-  let comments = [];
-
-  let comments_json = github.get_global_content('/comments.json');
-  if comments_json {
-    comments = parse_json(comments_json);
-  }
-
-  comments = array.filter(comments, |c| => c['clazz'] == clazz && c['doc'] == doc);
+fn render_comments_html(clazz, doc) {
+  let comments = lite.list('select * from comment where clazz=? and doc=?', [clazz, doc]);
 
   let comments_html = [];
 
@@ -52,7 +45,8 @@ fn render_comments_html(clazz, doc, users) {
     let comment_content = md.get_html(md_comment_result);
     let metas = md.get_metas(md_comment_result);
     let comment_time = dt.from_now(dt.from_number(comment['create_time']));
-    let user = array.find(users, |u| => u['id'] == comment['user_id']);
+    let uid = comment['user_id'];
+    let user = lite.get_by_id('select * from  profile where id=?', [uid]);
     let comment_html = mch.render();
     array.push(comments_html, comment_html);
   }

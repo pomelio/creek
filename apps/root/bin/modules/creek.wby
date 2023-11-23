@@ -13,6 +13,9 @@ fn list_page_cards(page_size, offset) {
     return lite.list('select * from card where delete_time = 0 order by create_time desc limit ? offset ? ', [page_size, offset]);
 }
 
+fn get_card_by_id(id) {
+    return lite.get_by_id('card', id);
+}
 
 
 fn detect_lang(sample) {
