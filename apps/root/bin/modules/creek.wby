@@ -191,7 +191,7 @@ fn increase_doc_counter(clazz, doc) {
     let uid = uuid();
     let update_time = date.from_number();
     sql.insert();
-    sql.into('comment');
+    sql.into('countor');
     sql.set('id', uid);
     sql.set('clazz', clazz);
     sql.set('doc', doc);
