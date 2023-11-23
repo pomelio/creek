@@ -4,6 +4,15 @@ import ext.pagwelite as lite;
 import ext.squel as sql;
 import ext.languagedetect as languagedetect;
 
+fn get_card_length() {
+    let card_resp = lite.get('select count(*) as len  from card where delete_time = 0', []);
+    return card_resp['len'];
+}
+
+fn get_page_cards(page_size, offset) {
+    return lite.list('select * from card where delete_time = 0 order by create_time desc limit ? offset ? ', [page_size, offset]);
+}
+
 fn detect_lang(sample) {
     let rows = languagedetect.detect(sample, 1);
     return rows[0][0];

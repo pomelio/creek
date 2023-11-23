@@ -4,3 +4,7 @@ import ext.squel as sql;
 fn get_user(u_id) {
    return lite.get_by_id('profile', u_id);
 }
+
+fn list_users() {
+   return lite.list('profile');
+}

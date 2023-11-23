@@ -6,12 +6,11 @@ import ext.mustache as mch;
 import ext.markdownit as md;
 import std.math as math;
 import std.number as number;
-import ext.pagwelite as lite;
-import ext.squel as sql;
 import std.date as date;
 
 import modules.common as common;
 import modules.user as user_helper;
+import modules.creek as creek;
 
 let PAGE_SIZE = 10;
 
@@ -41,7 +40,7 @@ let {html: likes_html, count: likes_count} = common.render_likes_html(clazz, doc
 
 let side_bar_html = common.render_sidebar(app);
 
-let cards = lite.list('select * from card where delete_time = 0 order by create_time desc limit ? offset ? ', [PAGE_SIZE, offset]);
+let cards = creek.get_page_cards(PAGE_SIZE, offset);
 
 let cards_count = len(cards);
 
@@ -103,8 +102,8 @@ let cards_html = array.join(cards_html, '');
 
 let HOST_NAME = web.hostname();
 
-let card_resp = lite.get('select count(*) as len  from card where delete_time = 0', []);
-let creek_len = card_resp['len'];
+
+let creek_len = creek.get_card_length();
 
 
 let page_count = math.floor(creek_len / PAGE_SIZE) + 1;
