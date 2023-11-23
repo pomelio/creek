@@ -45,8 +45,6 @@ if end > users_count {
     end = users_count;
 }
 
-let users_count = len(users);
-users = array.slice(users, offset, end);
 
 mch.init('/template/user/user_card.mustache');
 
