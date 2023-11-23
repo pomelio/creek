@@ -52,6 +52,7 @@ let cards_html = [];
 for (let i = 0; i < cards_count; i++) {
     let card = cards[i];
     let comments_count = common.get_doc_comments_count('card', card['id']);
+    card['comments_count'] = comments_count;
     let card_html = creek.render_card(card);
     array.push(cards_html, card_html);
 }
