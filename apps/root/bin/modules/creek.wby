@@ -26,6 +26,7 @@ fn render_card(card) {
     let pub_date = date.from_now();
     
     let url = card['url'];
+    let card_id = card['id'];
     let is_player_card = false;
     let is_summary_card = false;
     let is_summary_image_card = false;
