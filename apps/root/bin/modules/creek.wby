@@ -3,6 +3,8 @@ import ext.htmlparser as htmlparser;
 import ext.pagwelite as lite;
 import ext.squel as sql;
 import ext.languagedetect as languagedetect;
+import std.date as date;
+import ext.mustache as mch;
 
 fn get_card_length() {
     let card_resp = lite.get('select count(*) as len  from card where delete_time = 0', []);
@@ -15,6 +17,46 @@ fn list_page_cards(page_size, offset) {
 
 fn get_card_by_id(id) {
     return lite.get_by_id('card', id);
+}
+
+fn render_card(card) {
+    let user_id = card['user_id'];
+    let profile = lite.get_by_id('profile', user_id);
+    date.from_number(card['create_time']);
+    let pub_date = date.from_now();
+    
+    let url = card['url'];
+    let is_player_card = false;
+    let is_summary_card = false;
+    let is_summary_image_card = false;
+
+    let player_url = null;
+    let image_url = null;
+    let video = card['video'];
+    let image = card['image'];
+    let title = card['title'];
+    let description = card['description'];
+    
+
+    if video {
+        is_player_card = true;
+        is_summary_card = false;
+        is_summary_image_card = false;
+
+        image_url = image;
+    } elsif image {
+        is_player_card = false;
+        is_summary_card = false;
+        is_summary_image_card = true;
+        
+        image_url = image;
+    } else {
+        is_player_card = false;
+        is_summary_card = true;
+        is_summary_image_card = false;
+    }
+  
+    return mch.render();
 }
 
 

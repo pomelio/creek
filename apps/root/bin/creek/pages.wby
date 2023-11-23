@@ -55,43 +55,7 @@ mch.init('/template/creek/creek_card.mustache');
 for (let i = 0; i < cards_count; i++) {
     let card = cards[i];
 
-    let user_id = card['user_id'];
-    let profile = user_helper.get_user(user_id);
-    date.from_number(card['create_time']);
-    let pub_date = date.from_now();
-    
-    let url = card['url'];
-    let is_player_card = false;
-    let is_summary_card = false;
-    let is_summary_image_card = false;
-
-    let player_url = null;
-    let image_url = null;
-    let video = card['video'];
-    let image = card['image'];
-    let title = card['title'];
-    let description = card['description'];
-    
-
-    if video {
-        is_player_card = true;
-        is_summary_card = false;
-        is_summary_image_card = false;
-
-        image_url = image;
-    } elsif image {
-        is_player_card = false;
-        is_summary_card = false;
-        is_summary_image_card = true;
-        
-        image_url = image;
-    } else {
-        is_player_card = false;
-        is_summary_card = true;
-        is_summary_image_card = false;
-    }
-  
-    let card_html = mch.render();
+    let card_html = creek.render_card(card);
     array.push(cards_html, card_html);
 }
 

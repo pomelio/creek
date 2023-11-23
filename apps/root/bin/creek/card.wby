@@ -14,7 +14,8 @@ if !card {
     return {};
 }
 
-let card_html = mch.render_template('/template/creek/creek_card.mustache');
+
+let card_html = let card_html = creek.render_card(card);
 
 let project = {};
 let project_json = github.get_global_content('/project.json');
