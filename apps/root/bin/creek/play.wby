@@ -16,5 +16,5 @@ let doc = card_id;
 
 creek.increase_doc_counter(clazz, doc);
 
-web.redirect(card.url);
+web.redirect(card['url']);
 
