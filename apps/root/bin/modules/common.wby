@@ -31,7 +31,7 @@ fn render_likes_html(clazz, doc) {
 }
 
 fn render_comments_html(clazz, doc) {
-  let comments = lite.list('select * from comment where clazz=? and doc=?', [clazz, doc]);
+  let comments = lite.list('select * from comment where clazz=? and doc=? order by create_time desc', [clazz, doc]);
 
   let comments_html = [];
 
