@@ -32,7 +32,7 @@ let {html: likes_html, count: likes_count} = common.render_likes_html(clazz, doc
 
 let side_bar_html = common.render_sidebar(app);
 
-let {html: comments_html, count: comments_count} = common.render_comments_html(clazz, doc_name);
+let {html: comments_html, count: comments_count} = common.render_comments_html(clazz, doc);
 
 let HOST_NAME = web.hostname();
 
