@@ -11,7 +11,7 @@ let card = creek.get_card_by_id(card_id);
 if !card {
     web.set_status(404);
     web.body('card ' + card_id + ' is not found.');
-    return;
+    return {};
 }
 
 let project = {};
