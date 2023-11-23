@@ -108,8 +108,34 @@
                 {{/users_html}}
             </div>
 			
-			<div class="mt-12 flex justify-center">
-				<div id="pagination" data-page="{{page}}" data-count="{{page_count}}" data-url="/users"></div>
+			<div x-init="render();" class="mt-12 flex justify-center gap-4 text-gray-900 dark:text-white " x-data="{
+					page: {{page}},
+					page_count: {{page_count}},
+					pages: [],
+
+					render() {
+						let offset = this.page < 10 ? 0 : this.page - 5;
+						let end = this.page + 5 < this.page_count ? this.page + 5 : this.page_count;
+						this.pages = Array.from(
+										{length: end - offset},
+										(_, index) => index + offset
+									);
+						
+					}
+				}">
+				<a href="/users/?page=0"><span>First</span></a>
+				<template x-for="pg in pages">
+					<div>
+					<template x-if="pg != page">
+						<a x-bind:href="'/users/?page=' + pg"><span x-text="pg + 1"></span></a>
+					</template>
+					<template x-if="pg === page">
+						<span class="bg-yellow-100 text-yellow-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-yellow-900 dark:text-yellow-300"  x-text="pg + 1"></span>
+					</template>
+					</div>
+				</template>
+				<a x-bind:href="'/users/?page=' + (page_count - 1)"><span>Last</span></a>
+
 			</div>
 				
            
