@@ -21,7 +21,7 @@ fn render_likes_html(clazz, doc) {
   for (let i = 0; i < count; i++) {
     let like = likes[i];
     let uid = like['user_id'];
-    let user = lite.get_by_id('select * from  profile where id=?', [uid]);
+    let user = lite.get_by_id('profile', uid);
     let like_html = mch.render();
     array.push(likes_html, like_html);
   }
@@ -52,6 +52,60 @@ fn render_comments_html(clazz, doc) {
 
   let html = array.join(comments_html, '');
   return {html, count};
+}
+
+fn get_comment(id) {
+  return lite.get_by_id('comment', id);
+}
+
+fn save_comment(comment) {
+  let id = comment['id'];
+  let com = lite.get_by_id('comment', id);
+  if com {
+    update_comment(comment);
+  } else {
+    insert_comment(comment);
+  }
+}
+
+fn insert_comment(comment) {
+
+    sql.insert();
+    sql.into('comment');
+    sql.set('id', comment['id']);
+    sql.set('clazz', card['clazz']);
+    sql.set('doc', card['doc']);
+    sql.set('user_id', card['user_id']);
+    sql.set('value', card['value']);
+
+    sql.set('create_time', card['create_time']);
+
+    let sql_text = sql.get_sql_text();
+    let sql_values = sql.get_sql_values();
+    lite.update(sql_text, sql_values);
+}
+
+fn update_comment(comment) {
+
+  sql.update();
+  sql.table('comment');
+  sql.set('value', comment['value']);
+  sql.where('id=?', comment['id']);  
+
+  let sql_text = sql.get_sql_text();
+  let sql_values = sql.get_sql_values();
+  lite.update(sql_text, sql_values);
+}
+
+fn remove_comment(id) {
+
+  sql.delete();
+  sql.from('comment');
+  sql.where('id=?', comment['id']);  
+
+  let sql_text = sql.get_sql_text();
+  let sql_values = sql.get_sql_values();
+  lite.update(sql_text, sql_values);
 }
 
 fn render_foot_html(project) {
@@ -104,4 +158,17 @@ fn get_doc_name(web_path) {
     });
   }
   return str.substring(web_path, fidx + 1);
+}
+
+fn get_user(u_id) {
+   return lite.get_by_id('profile', u_id);
+}
+
+fn list_page_users(page_size, offset) {
+    return lite.list('select * from profile order by create_time desc limit ? offset ? ', [page_size, offset]);
+}
+
+fn get_users_count() {
+    let card_resp = lite.get('select count(*) as len  from profile', []);
+    return card_resp['len'];
 }

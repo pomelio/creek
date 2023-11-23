@@ -39,8 +39,6 @@ if web_path == '/' {
   dispatch(__APP__, '/comment/save', {});
 } elsif method == 'POST' && web_path == '/comment/remove' {
   dispatch(__APP__, '/comment/remove', {});
-} elsif method == 'GET' &&  web.match('/comment/:id') {
-  dispatch(__APP__, '/comment/get', {});
 } else {
   dispatch(__APP__, '/template', {});
 }

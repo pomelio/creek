@@ -6,7 +6,7 @@ import ext.web as web;
 import std.date as dt;
 
 import modules.common as common;
-import modules.user as user_db;
+
 
 let project = {};
 let project_json = github.get_global_content('/project.json');
@@ -33,7 +33,7 @@ if !user_id {
   });
 }
 
-let user = user_db.get_user(user_id);
+let user = common.get_user(user_id);
 
 if !user {
   throw({

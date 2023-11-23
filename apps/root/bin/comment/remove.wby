@@ -3,6 +3,7 @@ import ext.github as github;
 import std.array as array;
 import ext.jwt as jwt;
 import std.date as date;
+import modules.common as common;
 
 
 let token = jwt.verify();
@@ -17,16 +18,19 @@ if !id {
   });
 }
 
-
-let comment_docs_path = '/comments.json';
-let comment_docs = [];
-
-let comment_docs_json = github.get_global_content(comment_docs_path);
-if comment_docs_json {
-  comment_docs = parse_json(comment_docs_json);
+let comment = common.get_comment(id);
+if !comment {
+  web.set_status(404);
+  web.body('comment ' + id + ' is not found.');
+  return {};
 }
 
-comment_docs = array.filter(comment_docs, |u| => u['id'] != id);
-github.save_global_text(comment_docs_path, stringify_json(comment_docs));
+if comment['user_id'] != user_id {
+  web.set_status(403);
+  web.body('comment user is not matched.');
+  return {};
+}
+
+common.remove_comment(id);
 
 web.body({status: 'OK'});

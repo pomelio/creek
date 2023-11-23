@@ -6,7 +6,6 @@ import std.math as math;
 import std.number as number;
 import modules.common as common;
 
-import modules.user as user_helper;
 
 let PAGE_SIZE = 100;
 
@@ -34,9 +33,9 @@ if app_json {
 let side_bar_html = common.render_sidebar(app);
 
 
-let users = user_helper.list_page_users(PAGE_SIZE, offset);
+let users = common.list_page_users(PAGE_SIZE, offset);
 
-let users_count = user_helper.get_user_length();
+let users_count = common.get_users_count();
 
 
 let end = offset + PAGE_SIZE;
