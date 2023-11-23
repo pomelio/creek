@@ -34,7 +34,7 @@ if app_json {
 let side_bar_html = common.render_sidebar(app);
 
 
-let users = user_helper.list_page_users(PAGE_SIZE, offset)
+let users = user_helper.list_page_users(PAGE_SIZE, offset);
 
 let users_count = user_helper.get_user_length(users);
 
