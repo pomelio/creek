@@ -168,7 +168,7 @@ fn save_card(card) {
 }
 
 fn get_doc_countor(clazz, doc){
-    let count_resp = lite.get('select value as len from countor where clazz=? and doc=?', [clazz, doc]);
+    let count_resp = lite.get('select value from countor where clazz=? and doc=?', [clazz, doc]);
     if count_resp {
         return count_resp['value'];
     } else {
