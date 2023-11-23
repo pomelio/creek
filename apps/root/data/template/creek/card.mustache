@@ -159,8 +159,10 @@
                             await axios(config);
 
                         } finally {
+                            let self = this;
                             
-                            
+                            self.loading = false;
+                            window.location.reload(true);
                         }
                     }
                 }">
