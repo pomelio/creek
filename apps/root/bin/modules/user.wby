@@ -5,6 +5,11 @@ fn get_user(u_id) {
    return lite.get_by_id('profile', u_id);
 }
 
-fn list_users() {
-   return lite.list('profile');
+fn list_user_cards(page_size, offset) {
+    return lite.list('select * from profile order by create_time desc limit ? offset ? ', [page_size, offset]);
+}
+
+fn get_user_length() {
+    let card_resp = lite.get('select count(*) as len  from profile', []);
+    return card_resp['len'];
 }

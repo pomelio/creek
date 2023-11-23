@@ -9,9 +9,11 @@ fn get_card_length() {
     return card_resp['len'];
 }
 
-fn get_page_cards(page_size, offset) {
+fn list_page_cards(page_size, offset) {
     return lite.list('select * from card where delete_time = 0 order by create_time desc limit ? offset ? ', [page_size, offset]);
 }
+
+
 
 fn detect_lang(sample) {
     let rows = languagedetect.detect(sample, 1);

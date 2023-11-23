@@ -40,7 +40,7 @@ let {html: likes_html, count: likes_count} = common.render_likes_html(clazz, doc
 
 let side_bar_html = common.render_sidebar(app);
 
-let cards = creek.get_page_cards(PAGE_SIZE, offset);
+let cards = creek.list_page_cards(PAGE_SIZE, offset);
 
 let cards_count = len(cards);
 

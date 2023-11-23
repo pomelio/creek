@@ -6,13 +6,18 @@ import std.math as math;
 import std.number as number;
 import modules.common as common;
 
+import modules.user as user_helper;
+
 let PAGE_SIZE = 20;
+
 
 let query = web.query();
 let page = 0;
 if query['page'] {
   page = number.parse_int(query['page']);
 }
+
+let offset = page * PAGE_SIZE;
 
 let project = {};
 let project_json = github.get_global_content('/project.json');
@@ -28,16 +33,11 @@ if app_json {
 
 let side_bar_html = common.render_sidebar(app);
 
-let users_path = '/users.json';
-let users = [];
 
-let users_json = github.get_global_content(users_path);
-if users_json {
-  users = parse_json(users_json);
-}
+let users = user_helper.list_page_users(PAGE_SIZE, offset)
 
-let users_count = len(users);
-let offset = page * PAGE_SIZE;
+let users_count = user_helper.get_user_length(users);
+
 
 let end = offset + PAGE_SIZE;
 
