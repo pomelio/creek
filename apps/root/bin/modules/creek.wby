@@ -181,7 +181,7 @@ fn increase_doc_counter(clazz, doc) {
   if count > 0 {
     sql.update();
     sql.table('countor');
-    sql.set('value', 'value+1');
+    sql.set('value', 'value + 1');
     sql.where('clazz=? and doc=?', [clazz, doc]);  
 
     let sql_text = sql.get_sql_text();
