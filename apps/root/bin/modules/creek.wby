@@ -38,7 +38,12 @@ fn render_card(card) {
     let image = card['image'];
     let title = card['title'];
     let description = card['description'];
-    
+
+    let countor = get_doc_countor('card', card_id);
+    let card_countor = undefined;
+    if countor > 0 {
+        card_countor = countor;
+    }
 
     if video {
         is_player_card = true;
